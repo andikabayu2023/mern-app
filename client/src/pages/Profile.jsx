@@ -17,14 +17,14 @@ export default function Profile() {
   const [formData, setFormData] = useState({});
 
   //firebase storage
-  // allow read;
+  //allow read;
   //allow write: if
   //request.resource.size < 2 * 1024 * 1024 &&
   //request.resource.contentType.matches('image/.*')
 
   useEffect(() => {
     if (file) {
-      handleFileUpload();
+      handleFileUpload(file);
     }
   }, [file]);
 
@@ -45,9 +45,9 @@ export default function Profile() {
         setFileUploadError(true);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setFormData({ ...formData, avatar: downloadURL });
-        });
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
+          setFormData({ ...formData, avatar: downloadURL })
+        );
       }
     );
   };
@@ -71,7 +71,7 @@ export default function Profile() {
         <p className="text-sm self-center">
           {fileUploadError ? (
             <span className="text-red-700">
-              Error image upload(iamge must be less then 2mb)
+              Error image upload(image must be less then 2mb)
             </span>
           ) : filePerc > 0 && filePerc < 100 ? (
             <span className="text-slate-700">{`Uploading ${filePerc}%`}</span>
@@ -94,7 +94,7 @@ export default function Profile() {
           className="border p-3 rounded-lg"
         />
         <input
-          type="password"
+          type="text"
           placeholder="password"
           id="password"
           className="border p-3 rounded-lg"
